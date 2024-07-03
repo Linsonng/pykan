@@ -878,9 +878,9 @@ class KAN(nn.Module):
             global train_loss, reg_
             optimizer.zero_grad()
             print("Using LBFGS")
-            print("INput is ", dataset['train_input'][train_id])
+            # print("INput is ", dataset['train_input'][train_id])
             pred = self.forward(dataset['train_input'][train_id].to(device))
-            print("output is ", pred)
+            # print("output is ", pred)
 
             if sglr_avoid == True:
                 id_ = torch.where(torch.isnan(torch.sum(pred, dim=1)) == False)[0]
