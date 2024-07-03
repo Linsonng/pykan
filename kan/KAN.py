@@ -854,6 +854,7 @@ class KAN(nn.Module):
         if opt == "Adam":
             optimizer = torch.optim.Adam(self.parameters(), lr=lr)
         elif opt == "LBFGS":
+
             optimizer = LBFGS(self.parameters(), lr=lr, history_size=10, line_search_fn="strong_wolfe", tolerance_grad=1e-32, tolerance_change=1e-32, tolerance_ys=1e-32)
 
         results = {}
@@ -876,14 +877,20 @@ class KAN(nn.Module):
         def closure():
             global train_loss, reg_
             optimizer.zero_grad()
+            print("Using LBFGS")
+            print("INput is ", dataset['train_input'][train_id])
             pred = self.forward(dataset['train_input'][train_id].to(device))
+            print("output is ", pred)
+
             if sglr_avoid == True:
                 id_ = torch.where(torch.isnan(torch.sum(pred, dim=1)) == False)[0]
                 train_loss = loss_fn(pred[id_], dataset['train_label'][train_id][id_].to(device))
             else:
                 train_loss = loss_fn(pred, dataset['train_label'][train_id].to(device))
+            print("train loss", train_loss)
             reg_ = reg(self.acts_scale)
             objective = train_loss + lamb * reg_
+            print("obj: ", objective)
             objective.backward()
             return objective
 
