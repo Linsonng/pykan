@@ -976,7 +976,9 @@ class KAN(nn.Module):
         for i in range(len(self.acts_scale) - 1):
             if mode == "auto":
                 in_important = torch.max(self.acts_scale[i], dim=1)[0] > threshold
+                print("in important i is ",torch.max(self.acts_scale[i], dim=1)[0])
                 out_important = torch.max(self.acts_scale[i + 1], dim=0)[0] > threshold
+                print("out important i is ",torch.max(self.acts_scale[i + 1], dim=0)[0])
                 overall_important = in_important * out_important
             elif mode == "manual":
                 overall_important = torch.zeros(self.width[i + 1], dtype=torch.bool)
