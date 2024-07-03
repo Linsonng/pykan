@@ -123,6 +123,7 @@ class KAN(nn.Module):
         '''
         super(KAN, self).__init__()
         print("this is Pengze KAN")
+        print("JUSt")
         torch.manual_seed(seed)
         np.random.seed(seed)
         random.seed(seed)
