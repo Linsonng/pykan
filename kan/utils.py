@@ -34,6 +34,9 @@ SYMBOLIC_LIB = {'x': (lambda x: x, lambda x: x),
                  #'cosh^2': (lambda x: torch.cosh(x)**2, lambda x: sympy.cosh(x)**2),
 }
 
+def print_test():
+  print("PEngze is here")
+
 def create_dataset(f, 
                    n_var=2, 
                    ranges = [-1,1],
