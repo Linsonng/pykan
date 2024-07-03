@@ -981,13 +981,15 @@ class KAN(nn.Module):
             elif mode == "manual":
                 overall_important = torch.zeros(self.width[i + 1], dtype=torch.bool)
                 overall_important[active_neurons_id[i + 1]] = True
+            
             mask.append(overall_important.float())
             active_neurons.append(torch.where(overall_important == True)[0])
+
         active_neurons.append(list(range(self.width[-1])))
         mask.append(torch.ones(self.width[-1], ))
 
         self.mask = mask  # this is neuron mask for the whole model
-
+        print(active_neurons)
         # update act_fun[l].mask
         for l in range(len(self.acts_scale) - 1):
             for i in range(self.width[l + 1]):
